@@ -70,7 +70,7 @@ export default function MyApp(props: MyAppProps) {
           <CssBaseline />
           <NavBar />
           <Drawer />
-          <Component sx={{ flexGrow: 1 }} {...pageProps}/>
+          <Component sx={{ flexGrow: 1}} {...pageProps}/>
         </Box>
       </Providers>
     </CacheProvider>

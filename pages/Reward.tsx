@@ -7,21 +7,17 @@ import { makeStyles } from "@mui/styles";
 import { useReflection } from '../hooks';
 import { useYam } from '../hooks';
 import { stringHelper } from '../helpers';
+import Image from 'next/image';
+
+import MockAvatar from '../public/images/citizen/MockAvatar.jpg';
 
 
 const useStyles = makeStyles(() => ({
-  customInput: {
-    background: 'white',
-    borderRadius: '10px',
-    color:'red',
-    borderStyle:'none',
-    borderColor:'transparent',
-    width:'100%',
-  },
+
   customButtonStyle: {
     color:'white',
     borderRadius: '10px',
-    background:'#471D67',
+    background: 'linear-gradient(to bottom, #AB6FE9, #9E2EF6)',
     borderColor:'#AB6FE9',
     borderWidth:'1px',
     borderStyle:'solid',
@@ -47,10 +43,28 @@ const useStyles = makeStyles(() => ({
     wordWrap:'break-word',
   },
   rewardContainerStyle: {
-    marginTop:'100px',
     marginLeft:'5%',
+    marginTop:'150px', 
     wordWrap:'break-word',
   },
+  imageBoxStyle: {
+    backgroundColor:'black',
+    width:'180px',
+    marginTop:'50px',
+    borderRadius:'10px',
+    padding:'15px',
+  },
+  nftImageStyle: {
+    botherRadius:'20px',
+    margin:'30px',
+    padding:'10px',
+  },
+  nextBorderBox:{
+    borderRadius: '10px',
+    overflow: 'hidden',
+    width:'150px',
+    height:'180px',
+  }
 }));
 
 const Reward: NextPage = () => {
@@ -64,44 +78,6 @@ const Reward: NextPage = () => {
   const [rewardValue, setRewardValue] = useState<number>(0);
   const [claimButtonStatus, setClaimButtonStatus] = useState<boolean>(false);
   const yamClient = useYam();
-
-  // useEffect(() => {
-  //   const getSellingStatus = async () => {
-  //     try {
-  //       if(yamClient != undefined) {
-  //         const nftCount: number[] = new Array(6).fill(0);
-  //         for(let i = 0; i < 6; i++){
-  //           const temp = await yamClient.contracts.contractsMap['SugarNFT'].methods.balanceOf(account, i+1).call();
-  //           nftCount[i] = temp;
-  //         } 
-  //         setDiamondCounts(nftCount);
-
-  //         const rewards: number[] = new Array(6).fill(0);
-  //         for(let i = 0; i < 6; i++){
-  //           const temp = await yamClient.contracts.contractsMap['REWARD'].methods.getRewardsPerDay(i+1).call();
-  //           rewards[i] = temp / 1000000000;
-  //         } 
-  //         setRewardsPerDay(rewards);
-
-  //         const sugarReflection = await fetchReflection();
-  //         if(sugarReflection != undefined) {
-  //         const res = sugarReflection.curPrice;
-  //         setCurPrice(res);
-
-  //         let sum = 0 ;
-  //         for(let i = 0; i < 6; i ++) { 
-  //           sum += nftCount[i] * rewards[i];
-  //         }
-  //         setRewardAmount(sum);
-  //         setRewardValue(sum * res);          
-  //         }
-  //       } 
-  //     } catch (error) {
-  //         console.log(error);
-  //       }
-  //     };
-  //     getSellingStatus();
-  //   }, [yamClient]);
 
     useEffect(() => {
       const ClaimInit = async () => {
@@ -150,7 +126,7 @@ const Reward: NextPage = () => {
   return (
     <Container className={classes.rewardContainerStyle}>
       <Grid container spacing={6}>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <Box sx={{backgroundColor: 'rgba(47, 19, 74, 0.25)', p: 5, borderRadius: 3,}}>
             <Grid item sx={{mb:8}}>
               <Typography className={classes.titleStyle} variant="subtitle2" >CHECK YOUR REFLECTIONS</Typography>
@@ -174,10 +150,24 @@ const Reward: NextPage = () => {
               <Typography className={classes.subContentStyle}>{numberWithCommas( reflectionValue.toFixed(2) )} $</Typography>
             </Grid>
           </Box>
+        </Grid> */}
+        <Grid item xs={12} md={6}>
+        <Box sx={{p: 5, borderRadius: 3,}}>
+          <Grid>
+            <Typography className={classes.titleStyle} variant="subtitle2" >My NFTs</Typography>
+            <Typography className={classes.subContentStyle}>Your CITIZEN NFTs will show here</Typography>
+            <Box className={classes.imageBoxStyle}>
+              <Box className={classes.nextBorderBox}>
+                <Image alt="MockAvatar" className="rounded-full" src={MockAvatar} width={'150px'} height={'180px'}  objectFit="cover"/>
+              </Box>
+              <Typography sx={{fontSize:'15px',m:3,}}>CITIZEN #011</Typography>
+            </Box>
+          </Grid>
+        </Box>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Box sx={{backgroundColor: 'rgba(47, 19, 74, 0.25)', p: 5, borderRadius: 3,}}>
+          <Box sx={{backgroundColor: '#141518', p: 5, borderRadius: 3,}}>
             <Grid item sx={{mb:3,}}>
               <Typography className={classes.titleStyle} variant="subtitle2" >CHECK YOUR DIAMOND NFT REWARDS</Typography>
             </Grid>

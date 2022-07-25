@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer  from '@mui/material/Drawer';
+import { makeStyles } from "@mui/styles";
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { Divider, List, ListItem, ListItemText, Stack } from '@mui/material';
-
 import Image from 'next/image';
-import Logo from '../../public/ExWhite.svg';
+import Logo from '../../public/images/citizen/Citi_header_logo.png';
 import { drawerWidth } from '../../config';
 import { GlobalContext, NavigationContext} from '../../contexts';
 
@@ -16,9 +17,9 @@ const TWITTER = "/images/icons/Twitter.png";
 const TELEGRAM = "/images/icons/Telegram.png";
 const INSTAGRAM = "/images/icons/Instagram.png";
 const DISCORD = "/images/icons/Discord.png";
-const FACEBOOK = "/images/icons/Facebook.png";
+const REDDIT = "/images/icons/Reddit.png";
 import {CgLaptop} from 'react-icons/cg';
-import {BiPulse} from 'react-icons/bi';
+import {BiPlusCircle} from 'react-icons/bi';
 import {IoIosSwitch} from 'react-icons/io';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import {IoMdLock} from 'react-icons/io';
@@ -38,6 +39,39 @@ interface Props {
   window?: () => Window;
 }
 
+const useStyles = makeStyles(() => ({
+  diamondBox: {
+    margin:'5%',
+    paddingBottom:'5%',
+    backgroundSize:"contain",
+    backgroundRepeat:'no-repeat',
+    backgroundPositionX:'center',
+    backgroundPositionY:'-10px',
+    borderRadius:'10px',
+    color:'White',
+  },
+
+  customBadge: {
+    display:'flex',
+    fontSize:'15px',
+    color:'#EB6FE9',
+  },
+
+  iconContainerStyle: {
+    // background: 'linear-gradient(to bottom, rgba(78, 94, 238, 0.25), rgba(228,122, 231, 0.25))',
+    background: '#444444',
+    opacity:'0.9',
+    borderRadius: 3,
+    paddingBottom: 4,
+    width:'80%',
+  },
+  boxItemStyle: {
+    background:'rgba(60, 60, 90)',
+    opacity:'0.9',
+    borderRadius: 10,
+  }
+}));
+
 export default function PermanentDrawerLeft(props: Props) {
   const { window } = props;
   const router = useRouter();
@@ -49,16 +83,14 @@ export default function PermanentDrawerLeft(props: Props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   const boxTypoStyle = {
-    background: 'linear-gradient(to bottom, rgba(78, 94, 238, 0.25), rgba(228,122, 231, 0.25))',
+    // background: 'linear-gradient(to bottom, rgba(78, 94, 238, 0.25), rgba(228,122, 231, 0.25))',
+    background: '#444444',
+    margin:'30px',
+    opacity:'0.9',
     borderRadius: 3,
     paddingRight: 7,
   };
-  const boxItemStyle = {
-    background: 'linear-gradient(to bottom, rgba(78, 94, 238, 0.25), rgba(228,122, 231, 0.25))',
-    borderRadius: 3,
-    pl:1,
-    pr:1,
-  }
+
   const listItemStyle = {
     paddingLeft: 2,
     justifyContent:'space-between',
@@ -69,11 +101,7 @@ export default function PermanentDrawerLeft(props: Props) {
     justifyContent:'space-between',
     display:'flex',
   }
-  const iconContainerStyle = {
-    background: 'linear-gradient(to bottom, rgba(78, 94, 238, 0.25), rgba(228,122, 231, 0.25))',
-    borderRadius: 3,
-    paddingBottom: 4,
-  }
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -81,45 +109,60 @@ export default function PermanentDrawerLeft(props: Props) {
     cursor: 'pointer',
   };
 
+  const classes = useStyles(); 
   const drawerContent = (
-    <Stack direction="column" spacing={1} sx={{mt:4,}}>
-      <Image alt="logo" src={Logo} width={'100px'} height={'30px'}/>
-      <Box sx={boxTypoStyle}>
-        <Typography variant="body1" align="center" p={2}>$SUGAR: $ {Number(sugarPrice).toFixed(6)}</Typography>
-      </Box>
-      <Box sx={boxItemStyle}>
-        <List >
-            <Link href='https://sugarlandcoin.com/' passHref>
-              <ListItem button key="officialwebsite" selected={router.asPath == '/officialwebsite'}>
-                <CgLaptop/>
-                <ListItemText sx={listItemStyle} primary="Official Website" />
+    <Stack direction="column" spacing={1} sx={{mb:4, ml:3, mr:3,mt:15,}}>
+      <Box className={classes.boxItemStyle}>
+          <List>
+            <Link href='/whitelist' passHref>
+              <ListItem button key="whitelist" selected={router.asPath == '/whitelist'}>
+                <BsFillBookmarkPlusFill/> 
+                <ListItemText sx={listItemStyle} primary="whitelist" />
               </ListItem>
             </Link>
-        </List>
-      </Box>
-      <Box sx={boxItemStyle}>
-          <List>
             <Link href='/' passHref>
-              <ListItem button key="stats" selected={router.asPath == '/'}>
-                <BiPulse/>
-                <ListItemText sx={listItemStyle} primary="Stats" />
+              <ListItem button key="collections" selected={router.asPath == '/collections'}>
+                <BiPlusCircle/>
+                <ListItemText  sx={listItemStyle} primary="collections" />
               </ListItem>
             </Link>
             <Link href='/swap' passHref>
-              <ListItem button key="swap" selected={router.asPath == '/swap'}>
-                <IoIosSwitch/>
-                <ListItemText sx={listItemStyle} primary="Swap" />
+                <ListItem button key="collections" selected={router.asPath == '/swap'}>
+                  <AiOutlineUser/>
+                  <ListItemText  sx={listItemStyle} primary="My Account" />
+                </ListItem>
+            </Link>
+          </List>
+      </Box>
+      <Box className={classes.boxItemStyle}>
+          <List>
+            <Link href='/' passHref>
+              <ListItem button key="stats" selected={router.asPath == '/'}>
+                <BiPlusCircle/>
+                <ListItemText sx={listItemStyle} primary="Dashboard" />
               </ListItem>
             </Link>
             <Link href='/Reward' passHref>
               <ListItem button key="Reward" selected={router.asPath == '/Reward'}>
-                <BsFillCheckCircleFill/>
-                <ListItemText sx={listItemStyle} primary="Rewards" />
+                <MdCollectionsBookmark/>
+                <ListItemText sx={listItemStyle} primary="My NFT" />
               </ListItem>
+            </Link>
+            <Link href='/mint' passHref>
+              <ListItem button key="mint" selected={router.asPath == '/mint'}>
+                <RiImageFill/>
+                <ListItemText sx={listItemStyle} primary="Mint NFT" />
+              </ListItem>
+            </Link>
+            <Link href="/soon" passHref>
+                <ListItem button key="merch" >
+                  <AiOutlineHeart/>
+                  <ListItemText sx={listItemStyle} primary="MarketPlace"/>
+                </ListItem>
             </Link>
           </List>
       </Box>
-      <Box sx={boxItemStyle}>
+      {/* <Box sx={boxItemStyle}>
           <List>
             <Link href="/staking" passHref>
                 <ListItem button key="staking" selected={router.asPath == '/staking'}>
@@ -128,19 +171,13 @@ export default function PermanentDrawerLeft(props: Props) {
                 </ListItem>
             </Link>
           </List>
-      </Box>
-      <Box sx={boxItemStyle}>
+      </Box> */}
+      <Box className={classes.boxItemStyle}>
           <List>
-            <Link href='/mint' passHref>
-              <ListItem button key="mint" selected={router.asPath == '/mint'}>
-                <RiImageFill/>
-                <ListItemText sx={listItemStyle} primary="Diamond NFTs" />
-              </ListItem>
-            </Link>
-            <Link href='/citizen' passHref>
-              <ListItem button key="citizen" selected={router.asPath == '/citizen'}>
+            <Link href='/staking' passHref>
+              <ListItem button key="citizen" selected={router.asPath == '/staking'}>
                 <AiOutlineUser/>
-                <ListItemText sx={listItemStyle} primary="Citizen NFTs" />
+                <ListItemText sx={listItemStyle} primary="DAO" />
               </ListItem>
             </Link>
             <Link href='/mynfts' passHref>
@@ -151,23 +188,7 @@ export default function PermanentDrawerLeft(props: Props) {
             </Link>
           </List>
       </Box>
-      <Box sx={boxItemStyle}>
-          <List>
-            <Link href='/governance' passHref>
-              <ListItem button key="governance" selected={router.asPath == '/governance'}>
-                <BsFillBookmarkPlusFill/> 
-                <ListItemText sx={listItemStyle} primary="Governance" />
-              </ListItem>
-            </Link>
-            <Link href='/listing' passHref>
-              <ListItem button key="listings" selected={router.asPath == '/listing'}>
-                <BsList/>
-                <ListItemText  sx={listItemStyle} primary="Listing" />
-              </ListItem>
-            </Link>
-          </List>
-      </Box>
-      <Box sx={boxItemStyle}>
+      <Box className={classes.boxItemStyle}>
           <List>
             <Link href="/soon" passHref>
                 <ListItem button key="merch" >
@@ -177,7 +198,9 @@ export default function PermanentDrawerLeft(props: Props) {
             </Link>
           </List>
       </Box>
-      <Box sx={iconContainerStyle} >
+      {/* <Box className={classes.iconContainerStyle} > */}
+      <Box className={classes.boxItemStyle}>
+      
           <List>
             <ListItem>
               <FiShare/>
@@ -186,27 +209,27 @@ export default function PermanentDrawerLeft(props: Props) {
             <ListItem sx={listIconStyle}>
               <Link href='https://twitter.com/sugarlandcoin/' passHref>
                 <a target="_blank" style={socialLinkStyle}>
-                  <Image alt="twitter" src={TWITTER} width={'30px'} height={'30px'}/>
+                  <Image alt="twitter" src={TWITTER} width={'25px'} height={'22px'}/>
                 </a>
               </Link>
               <Link href='https://t.me/SugarLandNews/' passHref>
                 <a target="_blank" style={socialLinkStyle}>
-                  <Image alt="telegram" src={TELEGRAM} width={'30px'} height={'30px'}/>
+                  <Image alt="telegram" src={TELEGRAM} width={'25px'} height={'22px'}/>
                 </a>
               </Link>
               <Link href='https://discord.gg/28KZRJzxbA/' passHref>
                 <a target="_blank" style={socialLinkStyle}>
-                  <Image alt="discord" src={DISCORD} width={'30px'} height={'30px'}/>
+                  <Image alt="discord" src={DISCORD} width={'25px'} height={'22px'}/>
                 </a>
               </Link>
               <Link href='https://www.instagram.com/sugarland_IG/' passHref>
                 <a target="_blank" style={socialLinkStyle}>
-                  <Image alt="instagram" src={INSTAGRAM} width={'30px'} height={'30px'}/>
+                  <Image alt="instagram" src={INSTAGRAM} width={'25px'} height={'22px'}/>
                 </a>
               </Link>
-              <Link href='https://www.facebook.com/SugarlandCoinFB/' passHref>
+              <Link href='https://www.Reddit.com/SugarlandCoinFB/' passHref>
                 <a target="_blank" style={socialLinkStyle}>
-                  <Image alt="facebook" src={FACEBOOK} width={'30px'} height={'30px'}/>
+                  <Image alt="reddit" src={REDDIT} width={'25px'} height={'22px'}/>
                 </a>
               </Link>
 
@@ -234,8 +257,8 @@ export default function PermanentDrawerLeft(props: Props) {
           width: drawerWidth, 
           '& .MuiDrawer-paper': {
             color: 'white',
-            padding: '30px 30px 30px 30px',
-            background: '#261D4C',
+            // padding: '30px 30px 30px 30px',
+            background: '#171520',
             boxSizing: 'border-box', 
             width: drawerWidth,
           },
@@ -255,8 +278,8 @@ export default function PermanentDrawerLeft(props: Props) {
           '& .MuiDrawer-paper': { 
             width: drawerWidth,
             color: 'white',
-            padding: '30px 30px 30px 30px',
-            background: '#261D4C',
+            // padding: '30px 30px 30px 30px',
+            background: '#171520',
             boxSizing: 'border-box', 
           },
         }}

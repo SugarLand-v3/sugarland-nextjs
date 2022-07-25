@@ -90,7 +90,8 @@ theme = createTheme({
           fontWeight: 700,
           padding: '10px 26px',
           borderRadius: '10px',
-          background: 'linear-gradient(to bottom, #A656C1, #3B1D6D)',
+          background: 'linear-gradient(to bottom, #7F43FF, #2EF6F6)',
+          // background:'#0E0E0E',
           ":disabled": {
             background: palette.primary[60],
           },
@@ -244,7 +245,8 @@ theme = createTheme({
       styleOverrides: {
         "body": {
           color: 'white',
-          background: 'linear-gradient(to right, #A656C1, #3B1D6D)'
+          // background: 'linear-gradient(to right, #A656C1, #3B1D6D)'
+          background:'#0E0E0E',
         },
         fallbacks: [
           {
@@ -334,7 +336,8 @@ theme = createTheme({
       styleOverrides: {
         root: {
           '&.Mui-selected': {
-            backgroundColor : '#A656C1',
+            // backgroundColor : '#A656C1',
+            background:'gray',
             borderRadius: '10px',
           }
         }

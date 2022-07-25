@@ -11,3 +11,4 @@ const Soon: NextPage = () => {
 };
 
 export default Soon;
+      

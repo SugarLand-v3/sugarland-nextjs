@@ -7,7 +7,9 @@ import {useYam} from "../hooks";
 import { GlobalContext, Web3ModalContext } from '../contexts';
 const useStyles = makeStyles(() => ({
   customBoxStyle: {
-    backgroundColor: 'rgba(47, 19, 74, 0.25)',
+    // backgroundColor: 'rgba(47, 19, 74, 0.25)',
+    backgroundColor:'gray',
+
     padding:'2%',
     borderRadius: '10px',
   },
@@ -41,7 +43,7 @@ const useStyles = makeStyles(() => ({
   },
 
   mynftContainerStyle: {
-    marginTop:'100px',
+    marginTop:'200px',
     marginLeft:'5%',
   },
 
